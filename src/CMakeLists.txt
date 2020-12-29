@@ -103,7 +103,7 @@ INSTALL(
 	DESTINATION ${INCLUDE_INSTALL_DIR}/signal
 )
 
-INSTALL(TARGETS signal-protocol-c
+INSTALL(TARGETS signal-protocol-c EXPORT signal
 	LIBRARY DESTINATION ${LIB_INSTALL_DIR}
 	RUNTIME DESTINATION ${BIN_INSTALL_DIR}
 	ARCHIVE DESTINATION ${LIB_INSTALL_DIR}
@@ -113,3 +113,17 @@ configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/libsignal-protocol-c.pc.in
 		${CMAKE_CURRENT_BINARY_DIR}/libsignal-protocol-c.pc @ONLY)
 
 INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsignal-protocol-c.pc DESTINATION "${INSTALL_PKGCONFIG_DIR}")
+
+set(project_config_in "${CMAKE_CURRENT_LIST_DIR}/libsignal-protocol-c.cmake.in")
+set(project_config_out "${CMAKE_CURRENT_BINARY_DIR}/libsignal-protocol-c.cmake")
+set(config_targets_file "libsignal-protocol-cConfigTargets.cmake")
+set(export_dest_dir "${CMAKE_INSTALL_LIBDIR}/cmake/signal-protocol-c")
+set(version_config_file "${CMAKE_CURRENT_BINARY_DIR}/libsignal-protocol-cConfigVersion.cmake")
+
+install(EXPORT signal DESTINATION ${export_dest_dir} NAMESPACE signal:: FILE ${config_targets_file})
+
+include(CMakePackageConfigHelpers)
+configure_file("${project_config_in}" "${project_config_out}" @ONLY)
+
+write_basic_package_version_file("${version_config_file}" VERSION ${SIGNAL_PROTOCOL_C_VERSION} COMPATIBILITY SameMajorVersion)
+install(FILES "${project_config_out}" "${version_config_file}" DESTINATION "${export_dest_dir}")
