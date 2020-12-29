@@ -115,10 +115,10 @@ configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/libsignal-protocol-c.pc.in
 INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsignal-protocol-c.pc DESTINATION "${INSTALL_PKGCONFIG_DIR}")
 
 set(project_config_in "${CMAKE_CURRENT_LIST_DIR}/libsignal-protocol-c.cmake.in")
-set(project_config_out "${CMAKE_CURRENT_BINARY_DIR}/libsignal-protocol-c.cmake")
-set(config_targets_file "libsignal-protocol-cConfigTargets.cmake")
+set(project_config_out "${CMAKE_CURRENT_BINARY_DIR}/signal-protocol-cConfig.cmake")
+set(config_targets_file "signal-protocol-cConfigTargets.cmake")
 set(export_dest_dir "/usr/local/lib/cmake/signal-protocol-c")
-set(version_config_file "${CMAKE_CURRENT_BINARY_DIR}/libsignal-protocol-cConfigVersion.cmake")
+set(version_config_file "${CMAKE_CURRENT_BINARY_DIR}/signal-protocol-cConfigVersion.cmake")
 
 install(EXPORT signal DESTINATION ${export_dest_dir} NAMESPACE signal:: FILE ${config_targets_file})
 
