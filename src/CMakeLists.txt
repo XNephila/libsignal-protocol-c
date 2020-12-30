@@ -64,7 +64,7 @@ set(signal_protocol_SRCS
 add_subdirectory(curve25519)
 add_subdirectory(protobuf-c)
 
-add_library(signal-protocol-c
+add_library(signal
 	${protobuf_SRCS}
 	${signal_protocol_SRCS}
 	$<TARGET_OBJECTS:curve25519>
@@ -72,8 +72,8 @@ add_library(signal-protocol-c
 )
 
 if(BUILD_SHARED_LIBS)
-	target_link_libraries(signal-protocol-c ${M_LIB})
-	set_target_properties(signal-protocol-c PROPERTIES
+	target_link_libraries(signal ${M_LIB})
+	set_target_properties(signal PROPERTIES
 		VERSION ${SIGNAL_PROTOCOL_C_VERSION}
 		SOVERSION ${SIGNAL_PROTOCOL_C_VERSION_MAJOR}
 	)
@@ -103,22 +103,22 @@ INSTALL(
 	DESTINATION ${INCLUDE_INSTALL_DIR}/signal
 )
 
-INSTALL(TARGETS signal-protocol-c EXPORT signal
+INSTALL(TARGETS signal EXPORT signal
 	LIBRARY DESTINATION ${LIB_INSTALL_DIR}
 	RUNTIME DESTINATION ${BIN_INSTALL_DIR}
 	ARCHIVE DESTINATION ${LIB_INSTALL_DIR}
 )
 
-configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/libsignal-protocol-c.pc.in
-		${CMAKE_CURRENT_BINARY_DIR}/libsignal-protocol-c.pc @ONLY)
+configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/libsignal.pc.in
+		${CMAKE_CURRENT_BINARY_DIR}/libsignal.pc @ONLY)
 
-INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsignal-protocol-c.pc DESTINATION "${INSTALL_PKGCONFIG_DIR}")
+INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsignal.pc DESTINATION "${INSTALL_PKGCONFIG_DIR}")
 
-set(project_config_in "${CMAKE_CURRENT_LIST_DIR}/libsignal-protocol-c.cmake.in")
-set(project_config_out "${CMAKE_CURRENT_BINARY_DIR}/signal-protocol-cConfig.cmake")
-set(config_targets_file "signal-protocol-cConfigTargets.cmake")
-set(export_dest_dir "/usr/local/lib/cmake/signal-protocol-c")
-set(version_config_file "${CMAKE_CURRENT_BINARY_DIR}/signal-protocol-cConfigVersion.cmake")
+set(project_config_in "${CMAKE_CURRENT_LIST_DIR}/libsignal.cmake.in")
+set(project_config_out "${CMAKE_CURRENT_BINARY_DIR}/signalConfig.cmake")
+set(config_targets_file "signalConfigTargets.cmake")
+set(export_dest_dir "/usr/local/lib/cmake/signal")
+set(version_config_file "${CMAKE_CURRENT_BINARY_DIR}/signalConfigVersion.cmake")
 
 install(EXPORT signal DESTINATION ${export_dest_dir} NAMESPACE signal:: FILE ${config_targets_file})
 
