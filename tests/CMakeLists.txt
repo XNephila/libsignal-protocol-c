@@ -36,7 +36,7 @@ set(LIBS ${LIBS}
 	${OPENSSL_LIBRARIES}
 	${CMAKE_THREAD_LIBS_INIT}
 	${CMAKE_DL_LIBS}
-	signal-protocol-c
+	signal
 )
 
 set(common_SRCS
